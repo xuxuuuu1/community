@@ -1,13 +1,10 @@
 package com.xx.community.controller;
 
-import com.xx.community.dao.DiscussPostMapper;
-import com.xx.community.dao.UserMapper;
 import com.xx.community.entity.DiscussPost;
 import com.xx.community.entity.Page;
 import com.xx.community.entity.User;
 import com.xx.community.service.DiscussPostService;
 import com.xx.community.service.UserService;
-import org.omg.PortableInterceptor.DISCARDING;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
