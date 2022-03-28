@@ -2,17 +2,13 @@ package com.xx.community.controller;
 
 
 import com.xx.community.service.AlphaService;
+import com.xx.community.util.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -97,5 +93,41 @@ public class Test {
         map.put("age","23");
         map.put("salary",9000.00);
         return map;
+    }
+
+
+    @RequestMapping("/cookie")
+    @ResponseBody
+    public String test08(HttpServletResponse response) {
+        Cookie cookie = new Cookie("code", CommunityUtil.generateUUID());
+
+        cookie.setPath("/community/hello");
+        cookie.setMaxAge(60 * 10);
+
+        response.addCookie(cookie);
+        return "success!";
+    }
+
+    @RequestMapping("/cookie/get")
+    @ResponseBody
+    public String test09(@CookieValue("code") String code) {
+        System.out.println(code);
+        return "get success!";
+    }
+
+    @RequestMapping("/session/set")
+    @ResponseBody
+    public String test10(HttpSession session) {
+        session.setAttribute("id",1);
+        session.setAttribute("name","nick");
+        return "session success!";
+    }
+
+    @RequestMapping("/session/get")
+    @ResponseBody
+    public String test11(HttpSession session) {
+        System.out.println(session.getAttribute("id"));
+        System.out.println(session.getAttribute("name"));
+        return "get session info success!";
     }
 }
