@@ -157,5 +157,10 @@ public class UserService implements CommunityConstant {
         loginTicketMapper.updateStatus(ticket,1);
     }
 
+    //根据ticket查询出loginticket，进而查询出userid
+    public LoginTicket findLoginTicket(String ticket) {
+        return loginTicketMapper.selectByTicket(ticket);
+    }
+
 
 }
