@@ -77,8 +77,11 @@ public class UserService implements CommunityConstant {
 
         //注册用户
         user.setSalt(CommunityUtil.generateUUID().substring(0,5));
+        //给密码加盐 提高安全性
         user.setPassword(CommunityUtil.md5(user.getPassword() + user.getSalt()));
+        //设置用户为普通用户
         user.setType(0);
+        //未激活则status为0 激活为1
         user.setStatus(0);
         user.setActivationCode(CommunityUtil.generateUUID());
         user.setCreateTime(new Date());
@@ -88,8 +91,10 @@ public class UserService implements CommunityConstant {
         //激活邮件
         Context context = new Context();
         context.setVariable("email",user.getEmail());
+        //restful风格
         String url = domain + contextPath + "/activation/" + user.getId() + "/" + user.getActivationCode();
         context.setVariable("url",url);
+        //用context 渲染模板
         String content = templateEngine.process("/mail/activation",context);
         mailClient.sendMail(user.getEmail(),"激活账号",content);
 

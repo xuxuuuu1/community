@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+/**
+ * 拦截器流程 preHandler -> controller -> postHandler -> templateEngine渲染 -> afterCompletion
+ * 每一次点击都会执行一遍这个流程
+ */
+
 @Component
 public class LoginTicketInterceptor implements HandlerInterceptor {
 
