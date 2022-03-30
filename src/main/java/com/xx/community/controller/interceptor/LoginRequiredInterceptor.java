@@ -19,7 +19,8 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //拦截的是不是方法 有可能会拦截静态资源
+        //判断拦截的是不是方法 拦截器会拦截静态资源
+        //所以先判断
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
