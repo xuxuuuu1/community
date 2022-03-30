@@ -29,6 +29,7 @@ public class HomeController {
     //在参数中 springMVC会自动将page model装配到容器中
     //所以在最后不用addAttribute
     public String getIndexPage(Model model, Page page) {
+        //获取所有的帖子
         page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/index");
 

@@ -23,7 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg")
                 .addPathPatterns("/register","/login");
 
-        //为这个拦截器进行注册 注册之后拦截器生效
+        //为这个拦截器进行注册 注册之后拦截器生效 没有addAttribute表示拦截所有请求
         registry.addInterceptor(loginTicketInterceptor).
                 excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg");
     }
