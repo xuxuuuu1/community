@@ -86,7 +86,7 @@ public class UserController {
         return "redirect:/index";
     }
 
-    //用response相应图片
+    //用response响应图片
     @RequestMapping(path = "/header/{fileName}",method = RequestMethod.GET)
     public void getHeader(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         //服务器存放图片资源的路径
@@ -111,7 +111,6 @@ public class UserController {
         } catch (IOException e) {
             logger.error("读取头像失败: " + e.getMessage());
         }
-
     }
 
 
