@@ -26,6 +26,7 @@ public class SensitiveFilter {
     //容器在调构造这个类之后 进行初始化，容器在服务初次启动时就会调用该方法
     //实例化bean -> 依赖注入 -> postConstruct
     //在servlet启动时调用一次
+    //try后面括号中的语句最自动在finally中关闭
     @PostConstruct
     public void init() {
         try(

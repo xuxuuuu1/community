@@ -103,7 +103,7 @@ public class UserController {
             //缓冲
             OutputStream os = response.getOutputStream();
             byte[] buffer = new byte[1024];
-            int b;
+            int b = 0;
             //将数据读到buffer里面
             while ((b = fis.read(buffer)) != -1) {
                 os.write(buffer,0,b);
