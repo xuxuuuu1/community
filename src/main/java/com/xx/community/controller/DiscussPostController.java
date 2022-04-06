@@ -34,8 +34,13 @@ public class DiscussPostController implements CommunityConstant {
     private DiscussPostMapper discussPostMapper;
     @Autowired
     private UserService userService;
-    @Autowired
+
     private CommentService commentService;
+
+    @Autowired
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     //用于ajax请求
     @RequestMapping(value = "/add",method = RequestMethod.POST)
@@ -63,6 +68,17 @@ public class DiscussPostController implements CommunityConstant {
     //2 在controller中，利用service调用mapper查询到数据库中帖子的详情，根据帖子的user_id字段查询到user
     //  将user和post添加到model中供模板渲染页面
     //3 转发到/site/discuss-detail渲染并返回给用户
+
+    /**
+     *
+     * @param discussPostId
+     * @param model
+     * @param page
+     * @return
+     * 显示评论功能：根据帖子查询到帖子的所有评论，创建commentVoList将每条帖子的comment（评论内容），作者，以及这条回复的所有回复，回复的数量 查询到
+     * 根据回复查询到这些评论的所有回复 ，查询到这些回复的reply，作者，回复的目标
+     * 最后将这些信息添加到 model中用于渲染模板
+     */
 
     @RequestMapping(path = "/detail/{discussPostId}",method = RequestMethod.GET)
     public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, Page page) {
