@@ -3,12 +3,31 @@ $(function(){
 	$(".close").click(delete_msg);
 });
 
+<!--ajax-->
 function send_letter() {
 	$("#sendModal").modal("hide");
-	$("#hintModal").modal("show");
-	setTimeout(function(){
-		$("#hintModal").modal("hide");
-	}, 2000);
+
+	var toName = $("#recipient-name").val();
+	var content = $("#message-text").val();
+	<!--发送给第一个链接，第二个时传入的参数，第三个是对数据的处理-->
+	$.post(
+		CONTEXT_PATH + "/letter/send",
+		{"toName":toName,"content":content},
+		function(data) {
+			data = $.parseJSON(data);
+			if(data.code == 0) {
+				$("#hintBody").text("发送成功!");
+			} else {
+				$("#hintBody").text(data.msg);
+			}
+
+			$("#hintModal").modal("show");
+			setTimeout(function(){
+				$("#hintModal").modal("hide");
+				location.reload();
+			}, 2000);
+		}
+	);
 }
 
 function delete_msg() {
