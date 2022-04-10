@@ -5,7 +5,7 @@ public class Page {
     private int current = 1;
 
     //显示上线
-    private int limit  = 10;
+    private int limit  = 15;
 
     private int rows;
 
@@ -64,7 +64,7 @@ public class Page {
     public int getTotal() {
 
         if (rows % limit == 0) {
-            return rows % limit;
+            return rows / limit;
         } else {
             return rows / limit + 1;
         }

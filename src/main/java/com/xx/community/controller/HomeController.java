@@ -4,7 +4,10 @@ import com.xx.community.entity.DiscussPost;
 import com.xx.community.entity.Page;
 import com.xx.community.entity.User;
 import com.xx.community.service.DiscussPostService;
+import com.xx.community.service.LikeService;
 import com.xx.community.service.UserService;
+import com.xx.community.util.CommunityConstant;
+import com.xx.community.util.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class HomeController {
+public class HomeController implements CommunityConstant {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    DiscussPostService discussPostService;
+    private DiscussPostService discussPostService;
+
+    @Autowired
+    private LikeService likeService;
 
     @RequestMapping(path = "/index",method = RequestMethod.GET)
     //在参数中 springMVC会自动将page model装配到容器中
@@ -41,6 +47,10 @@ public class HomeController {
                 map.put("post",post);
                 User user = userService.findUserById(post.getUserId());
                 map.put("user",user);
+
+                long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST,post.getId());
+                map.put("likeCount",likeCount);
+
                 discussPosts.add(map);
             }
         }
@@ -52,7 +62,7 @@ public class HomeController {
     //返回错误页面
     @RequestMapping(path = "/error",method = RequestMethod.GET)
     public String getErrorPage() {
-        return "error/500";
+        return "/error/500";
     }
 
 }
