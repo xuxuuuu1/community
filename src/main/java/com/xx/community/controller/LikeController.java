@@ -22,13 +22,20 @@ public class LikeController {
     @Autowired
     private HostHolder hostHolder;
 
+    /**
+     *
+     * @param entityType 帖子的类型 评论还是帖子
+     * @param entityId 帖子的id
+     * @param entityUserId 帖子的作者的id
+     * @return
+     */
     //ajax请求，用post，返回字符串实时响应
     @RequestMapping(value = "/like",method = RequestMethod.POST)
     @ResponseBody
-    public String like(int entityType, int entityId) {
+    public String like(int entityType, int entityId, int entityUserId) {
         User user = hostHolder.getUser();
 
-        likeService.like(user.getId(), entityType, entityId);
+        likeService.like(user.getId(), entityType, entityId, entityUserId);
 
         long likeCount = likeService.findEntityLikeCount(entityType, entityId);
 
