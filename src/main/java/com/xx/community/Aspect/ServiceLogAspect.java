@@ -31,6 +31,11 @@ public class ServiceLogAspect {
     public void before(JoinPoint joinPoint) {
         //获取到的是子类对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+        if (attributes == null) {
+            return;
+        }
+
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         //当前时刻
