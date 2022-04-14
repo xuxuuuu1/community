@@ -29,19 +29,20 @@ public class EventConsumer implements CommunityConstant {
             logger.error("消息的内容为空");
             return;
         }
+        // 将json格式字符串转化为java对象
         Event event = JSONObject.parseObject(record.value().toString(), Event.class);
 
         if (event == null) {
             logger.error("消息格式错误");
             return;
         }
-
+        // 设置系统消息
         Message message = new Message();
         message.setFromId(SYSTEM_USER_ID);
         message.setToId(event.getEntityUserId());
         message.setConversationId(event.getTopic());
         message.setCreateTime(new Date());
-
+        // 系统消息的内容主要用于渲染
         Map<String, Object> content = new HashMap<>();
         content.put("entityType",event.getEntityType());
         content.put("entityId",event.getEntityId());
