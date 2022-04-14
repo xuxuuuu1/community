@@ -3,6 +3,7 @@ package com.xx.community.config;
 import com.xx.community.controller.interceptor.AlphaInterceptor;
 import com.xx.community.controller.interceptor.LoginRequiredInterceptor;
 import com.xx.community.controller.interceptor.LoginTicketInterceptor;
+import com.xx.community.controller.interceptor.MessageInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +21,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginRequiredInterceptor loginRequiredInterceptor;
 
+    @Autowired
+    private MessageInterceptor messageInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //分别表示需要拦截的路径 以及不需要拦截的路径
@@ -33,6 +37,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         //为这个拦截器注册
         registry.addInterceptor(loginRequiredInterceptor).
+                excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg","/**/*.html");
+
+        // 拦截所有动态资源
+        registry.addInterceptor(messageInterceptor).
                 excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg","/**/*.html");
     }
 }
